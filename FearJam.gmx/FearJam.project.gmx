@@ -7,15 +7,20 @@
   <sounds name="sound"/>
   <sprites name="sprites">
     <sprite>sprites\sPlayer</sprite>
+    <sprite>sprites\sFork</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <script>scripts\create_fork.gml</script>
+  </scripts>
   <fonts name="fonts">
     <font>fonts\fScore</font>
   </fonts>
   <objects name="objects">
     <object>objects\oPlayer</object>
     <object>objects\oController</object>
+    <object>objects\oFork</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\GameRoom</room>

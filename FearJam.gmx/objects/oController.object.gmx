@@ -30,6 +30,12 @@ viewXDist = 30 + sprite_get_width(sPlayer)/2;
 viewYDist = 30 + sprite_get_height(sPlayer)/2;
 playerXStart = viewXDist;
 playerYStart = room_height - viewYDist;
+
+time = 0;
+secs = 0;
+forkInterval = 120;
+
+forkGravity = 1;
 </string>
           </argument>
         </arguments>
@@ -52,7 +58,30 @@ playerYStart = room_height - viewYDist;
             <kind>1</kind>
             <string>/// Object Creation
 player = instance_create(playerXStart,playerYStart,oPlayer)
+alarm_set(0,room_speed)
 </string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="2" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string></string>
           </argument>
         </arguments>
       </action>
@@ -74,9 +103,63 @@ player = instance_create(playerXStart,playerYStart,oPlayer)
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///View Management
-//view_xview = player.x - viewXDist;
+            <string>///main
 
+time += 1;
+
+///create fork
+
+secs = time/60;
+// make more forks faster over time by setting interval
+if (secs &lt; 7) {
+    forkInterval = 120;
+    forkGravity = 1;
+}
+else if (secs &gt; 7 and secs &lt; 15) {
+    forkInterval = 90;
+    forkGravity = 1.5;
+}
+else if (secs &gt; 15 and secs &lt; 20) {
+    forkInterval = 40;
+    forkGravity = 2;
+}
+else if (secs &gt; 20 and secs &lt; 25) {
+    forkInterval = 25;
+    forkGravity = 2.5;
+}
+else {
+    forkInteral = 9;
+    forkGravity = 3;
+}    
+
+
+// create forks based on forkInterval time
+if (time mod forkInterval = 0){
+    create_fork(forkGravity, 10, random(3))
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_text(view_xview + 200, view_yview + 200, instance_number(oFork))
 </string>
           </argument>
         </arguments>
